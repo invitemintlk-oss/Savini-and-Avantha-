@@ -7,7 +7,7 @@ export const wedding = {
 
   // Public address of the site, used for guest links and link previews.
   // Leave empty to use whatever domain the admin page is opened on.
-  baseUrl: "",
+  baseUrl: "https://savini-and-avantha-weddinginvitatio.vercel.app",
 
   eventName: "Wedding Celebration",
   dateShort: "17 . 03 . 27",
@@ -78,7 +78,7 @@ export const brideName = wedding.partner1;
 export const groomName = wedding.partner2;
 
 // Link-preview image for WhatsApp, Facebook, etc.
-export const ogImage = { url: "/assets/og-image.jpg", width: 1200, height: 1200, alt: `${coupleNames} · ${wedding.eventName}` };
+export const ogImage = { url: "/assets/og-image.jpg?v=2", width: 1200, height: 1200, alt: `${coupleNames} · Wedding Invitation` };
 
 export const mapsLink =
   "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(wedding.venue.mapQuery);
