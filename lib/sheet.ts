@@ -23,14 +23,3 @@ export async function postToSheet(payload: Record<string, unknown>): Promise<Res
     return { ok: false, error: "Could not reach the Google Sheet." };
   }
 }
-
-export async function getFromSheet(action: string): Promise<Result> {
-  const url = scriptUrl();
-  if (!url) return { ok: false, error: "The Google Sheet is not connected yet." };
-  try {
-    const res = await fetch(`${url}?action=${encodeURIComponent(action)}`, { redirect: "follow", cache: "no-store" });
-    return (await res.json()) as Result;
-  } catch {
-    return { ok: false, error: "Could not reach the Google Sheet." };
-  }
-}

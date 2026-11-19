@@ -4,8 +4,8 @@
 //
 // Tabs are created automatically (with styled headers) the first time they are needed:
 //   RSVP   : Timestamp | Name | Attending | Guests | Invited As
-//   Wishes : Timestamp | Name | Message | Invited As | Show
-// To hide a wish from the website, change its "Show" cell to "No".
+//   Wishes : Timestamp | Name | Message | Invited As
+// Wishes are private: they are only saved to the sheet, never shown on the website.
 
 const SPREADSHEET_ID = "1Z98ysW8ahS56JWZzJDJexAkrxImXGT4GGEdvSl7eEzY";
 
@@ -17,14 +17,13 @@ const SHEETS = {
   },
   wishes: {
     name: "Wishes",
-    headers: ["Timestamp", "Name", "Message", "Invited As", "Show"],
-    widths: [170, 200, 420, 200, 70],
+    headers: ["Timestamp", "Name", "Message", "Invited As"],
+    widths: [170, 200, 420, 200],
   },
 };
 
 const HEADER_BG = "#5a1a1f";   // antique wine
 const HEADER_FG = "#fdf9f3";   // cream ivory
-const MAX_WISHES = 100;
 
 // Run once from the editor: creates both tabs with headers. Safe to run again.
 function setup() {
@@ -50,9 +49,7 @@ function doPost(e) {
   }
 }
 
-function doGet(e) {
-  const action = (e && e.parameter && e.parameter.action) || "";
-  if (action === "wishes") return json_({ ok: true, wishes: listWishes_() });
+function doGet() {
   return json_({ ok: true, message: "RSVP & Wishes endpoint is running." });
 }
 
@@ -75,26 +72,8 @@ function saveWish_(data) {
 
   const invitedAs = clean_(data.invitedAs, 120);
   // Leading apostrophe stops text such as "=..." being treated as a formula
-  getSheet_(SHEETS.wishes).appendRow([new Date(), safe_(name), safe_(message), safe_(invitedAs), "Yes"]);
+  getSheet_(SHEETS.wishes).appendRow([new Date(), safe_(name), safe_(message), safe_(invitedAs)]);
   return { ok: true };
-}
-
-function listWishes_() {
-  const sheet = getSheet_(SHEETS.wishes);
-  const rows = sheet.getLastRow() - 1;
-  if (rows < 1) return [];
-  const values = sheet.getRange(2, 1, rows, SHEETS.wishes.headers.length).getValues();
-  return values
-    .filter(function (r) { return r[1] && r[2] && String(r[4]).trim().toLowerCase() !== "no"; })
-    .reverse()
-    .slice(0, MAX_WISHES)
-    .map(function (r) {
-      return {
-        name: String(r[1]),
-        message: String(r[2]),
-        time: r[0] instanceof Date ? r[0].toISOString() : "",
-      };
-    });
 }
 
 // Returns the tab, creating it (with styled headers) if it is missing or empty.

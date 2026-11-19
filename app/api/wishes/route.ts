@@ -1,13 +1,4 @@
-import { getFromSheet, postToSheet } from "@/lib/sheet";
-
-export const dynamic = "force-dynamic";
-
-// Lists wishes from the "Wishes" tab (rows whose Show column is "No" are hidden).
-export async function GET() {
-  const result = await getFromSheet("wishes");
-  if (!result.ok) return Response.json({ ok: false, wishes: [], error: result.error }, { status: 502 });
-  return Response.json({ ok: true, wishes: Array.isArray(result.wishes) ? result.wishes : [] });
-}
+import { postToSheet } from "@/lib/sheet";
 
 // Saves a new wish to the "Wishes" tab.
 export async function POST(req: Request) {

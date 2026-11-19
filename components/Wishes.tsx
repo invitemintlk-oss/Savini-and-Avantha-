@@ -1,36 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Icon from "./Icon";
 import { coupleNames } from "@/lib/wedding";
 
-type Wish = { name: string; message: string; time?: string };
-
 const MAX = 500;
 
-function when(iso?: string) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  return isNaN(d.getTime()) ? "" : d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-}
-
 export default function Wishes({ defaultName = "" }: { defaultName?: string }) {
-  const [wishes, setWishes] = useState<Wish[]>([]);
-  const [loading, setLoading] = useState(true);
   const [name, setName] = useState(defaultName);
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    let alive = true;
-    fetch("/api/wishes", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => { if (alive && Array.isArray(d.wishes)) setWishes(d.wishes); })
-      .catch(() => {})
-      .finally(() => alive && setLoading(false));
-    return () => { alive = false; };
-  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,9 +30,8 @@ export default function Wishes({ defaultName = "" }: { defaultName?: string }) {
       });
       const result = await res.json().catch(() => ({ ok: false }));
       if (!result.ok) throw new Error();
-      setWishes((w) => [{ name: who, message, time: new Date().toISOString() }, ...w]);
       setText("");
-      setStatus("Thank you for your lovely wishes!");
+      setStatus("Thank you! Your wishes have been sent to the couple.");
     } catch {
       setStatus("Sorry, we couldn't send your wish. Please try again.");
     } finally {
@@ -65,7 +44,7 @@ export default function Wishes({ defaultName = "" }: { defaultName?: string }) {
       <div className="sec-head reveal">
         <span className="kicker">Leave us a note</span>
         <h2>Your <span className="script">Wishes</span></h2>
-        <p className="lead">Share your blessings and kind words for {coupleNames} as they begin their journey together.</p>
+        <p className="lead">Share your blessings and kind words for {coupleNames} as they begin their journey together. Your message goes privately to the couple.</p>
       </div>
 
       <form className="wish-form reveal" onSubmit={submit}>
@@ -84,21 +63,6 @@ export default function Wishes({ defaultName = "" }: { defaultName?: string }) {
         </button>
         <p className="form-msg" role="status" aria-live="polite">{status}</p>
       </form>
-
-      <div className="wish-list" aria-live="polite">
-        {loading && <p className="wish-empty">Loading wishes...</p>}
-        {!loading && wishes.length === 0 && <p className="wish-empty">Be the first to leave a wish for the couple.</p>}
-        {wishes.map((w, i) => (
-          <figure className="wish-card" key={`${w.time}-${i}`}>
-            <span className="wish-quote" aria-hidden="true">&ldquo;</span>
-            <blockquote>{w.message}</blockquote>
-            <figcaption>
-              <span className="wish-name">{w.name}</span>
-              {when(w.time) && <span className="wish-date">{when(w.time)}</span>}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
     </section>
   );
 }

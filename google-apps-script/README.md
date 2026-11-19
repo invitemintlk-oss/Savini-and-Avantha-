@@ -7,10 +7,10 @@ The script creates two tabs with styled headers automatically:
 | Tab        | Columns                                             |
 | ---------- | --------------------------------------------------- |
 | **RSVP**   | Timestamp · Name · Attending · Guests · Invited As  |
-| **Wishes** | Timestamp · Name · Message · Invited As · Show      |
+| **Wishes** | Timestamp · Name · Message · Invited As             |
 
 "Invited As" is the guest name from their personal invite link (blank for the general link).
-To hide a wish from the website, change its **Show** cell to `No`.
+Wishes are private: they are saved to the sheet only and are not shown on the website.
 
 ## One-time setup
 
@@ -25,7 +25,7 @@ To hide a wish from the website, change its **Show** cell to `No`.
 5. Put the URL in `rsvpScriptUrl` in `lib/wedding.ts`
    (or set the `SHEET_SCRIPT_URL` environment variable in Vercel, which takes priority).
 
-Test: opening `<web app URL>?action=wishes` in a browser should show `{"ok":true,"wishes":[]}`.
+Test: opening the web app URL in a browser should show `{"ok":true,"message":"RSVP & Wishes endpoint is running."}`.
 
 ## Changing the script later
 
