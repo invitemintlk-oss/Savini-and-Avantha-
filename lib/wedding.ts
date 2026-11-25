@@ -12,6 +12,8 @@ export const wedding = {
   eventName: "Wedding Celebration",
   dateShort: "17 . 03 . 27",
   dateLong: "Wednesday, 17 March 2027",
+  dateDay: "Wednesday",
+  dateMain: "17 March 2027",
   start: "2027-03-17T09:00:00+05:30",
   end: "2027-03-17T15:00:00+05:30",
 
@@ -22,6 +24,7 @@ export const wedding = {
   ],
 
   venue: {
+    hotel: "The Kingsbury",
     name: "The Balmoral Banquet",
     area: "The Kingsbury, Colombo",
     address: "The Kingsbury Hotel, 48 Janadhipathi Mawatha, Colombo 01",
@@ -37,20 +40,6 @@ export const wedding = {
 
   // Add phone numbers like { label: "Savini · 07X XXX XXXX", href: "tel:07XXXXXXXX", whatsapp: false }
   contacts: [] as { label: string; href: string; whatsapp: boolean }[],
-
-  // Dress code shown under the Details cards
-  dressCode: {
-    title: "Our autumn theme colours",
-    note: "We'd love to see you in warm autumn tones: terracotta, antique wine, dusty blush, cream, sage or golden amber.",
-    colors: [
-      { name: "Terracotta", hex: "#A84E2C" },
-      { name: "Wine", hex: "#4A1418" },
-      { name: "Blush", hex: "#C99088" },
-      { name: "Cream", hex: "#EEE4D6" },
-      { name: "Sage", hex: "#7C8C6C" },
-      { name: "Amber", hex: "#C38A45" },
-    ],
-  },
 
   // Couple photos (graded copies of public/1.JPG – 4.JPG). The first is shown in the hero arch.
   photos: [

@@ -29,10 +29,10 @@ const bottomNav: { id: string; label: string; icon: IconName }[] = [
 ];
 
 const tiles: { href: string; icon: IconName; pre: string; title: string; sub?: string; accent?: boolean }[] = [
-  { href: "#events", icon: "calendar", pre: "The", title: "Details", sub: "How the day unfolds" },
+  { href: "#footer", icon: "clock", pre: "The", title: "Date", sub: "Save the date" },
   { href: "#venue", icon: "pin", pre: "The", title: "Location", sub: "How to find us" },
+  { href: "#events", icon: "calendar", pre: "The", title: "Details", sub: "How the day unfolds" },
   { href: "#rsvp", icon: "mail", pre: "Kindly", title: "Rsvp", accent: true },
-  { href: "#footer", icon: "clock", pre: "The", title: "Day", sub: "Save the date" },
 ];
 
 const parents = wedding.parents.filter((p) => p.names.trim());
@@ -190,7 +190,6 @@ export default function Invitation({ guest = "" }: { guest?: string }) {
                 <div className="hero-portrait reveal-scale">
                   <div className="hero-stage">
                     <img src={wedding.photos[0].src} alt={wedding.photos[0].alt} className="hero-photo" fetchPriority="high" />
-                    <span className="hero-badge">{wedding.dateShort}</span>
                   </div>
                 </div>
               </div>
@@ -247,7 +246,10 @@ export default function Invitation({ guest = "" }: { guest?: string }) {
         {/* ============ DETAILS ============ */}
         <section id="events" className="wrap section">
           <div className="sec-head reveal">
-            <span className="kicker">{wedding.dateLong}</span>
+            <div className="date-hl">
+              <span className="date-hl-day">{wedding.dateDay}</span>
+              <span className="date-hl-main">{wedding.dateMain}</span>
+            </div>
             <h2>The <span className="script">Details</span></h2>
             <p className="lead">Here&apos;s how our special day will unfold. We&apos;d love for you to be there for every moment.</p>
           </div>
@@ -261,21 +263,6 @@ export default function Invitation({ guest = "" }: { guest?: string }) {
                 <p>{ev.note}</p>
               </div>
             ))}
-          </div>
-
-          <div className="dress reveal">
-            <span className="ev-icon"><Icon name="hanger" size={26} stroke={1.3} /></span>
-            <span className="ev-title">Dress Code</span>
-            <div className="dress-title">{wedding.dressCode.title}</div>
-            <ul className="swatches">
-              {wedding.dressCode.colors.map((c) => (
-                <li key={c.name}>
-                  <span className="swatch" style={{ background: c.hex }} />
-                  <span className="sw-name">{c.name}</span>
-                </li>
-              ))}
-            </ul>
-            <p>{wedding.dressCode.note}</p>
           </div>
 
           <CalendarButton />
@@ -293,7 +280,8 @@ export default function Invitation({ guest = "" }: { guest?: string }) {
                 <span className="ev-icon small"><Icon name="pin" size={22} stroke={1.4} /></span>
                 <div className="venue-info">
                   <span className="ev-title sm">Venue</span>
-                  <h3>{wedding.venue.name}</h3>
+                  <h3 className="venue-hotel">{wedding.venue.hotel}</h3>
+                  <span className="venue-hall">{wedding.venue.name}</span>
                   <p>{wedding.venue.address}</p>
                   <a className="dir-link" href={mapsLink} target="_blank" rel="noopener noreferrer">
                     <Icon name="navigate" size={14} stroke={1.6} /> Get directions

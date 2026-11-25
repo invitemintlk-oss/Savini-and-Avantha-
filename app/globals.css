@@ -307,14 +307,6 @@ button { font: inherit; cursor: pointer; }
   background: linear-gradient(180deg, rgba(58,26,23,0.18) 0%, transparent 22%, transparent 75%, rgba(58,26,23,0.25) 100%);
   box-shadow: inset 0 0 0 1px rgba(253,249,243,0.35);
 }
-.hero-badge { z-index: 1;
-  position: absolute; left: 50%; top: 4.5%; transform: translateX(-50%);
-  padding: 0.3rem 0.9rem; border-radius: 999px; white-space: nowrap;
-  font-family: var(--f-head); letter-spacing: 0.16em; font-size: clamp(0.7rem, 2.2vw, 0.95rem);
-  color: var(--olive); background: rgba(253,249,243,0.78);
-  border: 1px solid rgba(195,138,69,0.45);
-  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-}
 .hero-mono {
   position: absolute; z-index: 3; left: 57%; top: 59%; transform: translate(-50%, -50%) rotate(3deg);
   pointer-events: none; line-height: 1; white-space: nowrap;
@@ -414,27 +406,14 @@ button { font: inherit; cursor: pointer; }
 .ev-rule { width: 2.5rem; height: 1px; margin: 0.375rem 0; background: var(--line-2); }
 .event p { font-size: 0.96rem; color: var(--ink-2); }
 
-/* Dress code */
-.dress {
-  max-width: 40rem; margin: 2.5rem auto 0; padding: 2.5rem 1.5rem 2.25rem;
-  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.625rem;
-  background:
-    radial-gradient(500px 220px at 50% 0%, rgba(232,201,191,0.35), transparent 70%),
-    var(--paper);
-  border: 1px solid var(--line); border-radius: 28px;
-  box-shadow: 0 16px 36px -26px rgba(58,26,23,0.4);
+/* Highlighted date above the Details heading */
+.date-hl {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  margin: 0 auto 1.5rem; padding: 0.9rem 2rem 1rem;
+  border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold);
 }
-.dress-title { font-family: var(--f-head); color: var(--ink); font-size: 1.3rem; letter-spacing: 0.04em; }
-.swatches { list-style: none; margin: 0.75rem 0 0.5rem; padding: 0; display: grid; grid-template-columns: repeat(3, 4.25rem); justify-content: center; gap: 1rem 1.25rem; }
-@media (min-width: 560px) { .swatches { grid-template-columns: repeat(6, 4rem); gap: 1rem 0.75rem; } }
-.swatches li { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-.swatch {
-  width: 3rem; height: 3rem; border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 1px rgba(195,138,69,0.55), 0 10px 18px -10px rgba(58,26,23,0.5);
-}
-.sw-name { text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.6rem; color: var(--muted); }
-.dress p { font-size: 0.96rem; color: var(--ink-2); max-width: 34ch; }
+.date-hl-day { text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.8rem; font-weight: 600; color: var(--sage-deep); }
+.date-hl-main { font-family: var(--f-head); color: var(--olive); font-weight: 600; letter-spacing: 0.06em; font-size: clamp(1.7rem, 6.5vw, 2.4rem); line-height: 1.1; }
 
 /* Calendar button */
 .cal { position: relative; max-width: 28rem; margin: 3rem auto 0; }
@@ -474,6 +453,8 @@ button { font: inherit; cursor: pointer; }
 }
 .venue-info { display: flex; flex-direction: column; gap: 0.25rem; }
 .venue-info h3 { text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--f-head); color: var(--ink); font-size: 1.1rem; font-weight: 600; }
+.venue-info h3.venue-hotel { font-size: clamp(1.7rem, 6vw, 2.2rem); color: var(--olive); letter-spacing: 0.08em; line-height: 1.15; margin-top: 0.25rem; }
+.venue-hall { font-family: var(--f-script); color: var(--gold); font-size: 1.6rem; line-height: 1.2; margin-bottom: 0.35rem; }
 .venue-info p { font-size: 0.96rem; color: var(--ink-2); }
 .dir-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.7rem; color: var(--leaf); justify-content: center; }
 .map-col { display: flex; flex-direction: column; gap: 1rem; }
